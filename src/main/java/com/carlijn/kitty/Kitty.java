@@ -11,41 +11,68 @@ package com.carlijn.kitty;
             this.happinessMeter = happinessMeter;
         }
 
-        private void miauw() {
-            System.out.println("miauw");
+        public void miauw() {
+            System.out.println(name + " says: miauw");
         }
 
-        private void pet(double increasedHappiness){
-            increasedHappiness = (Math.floor(Math.random() * 20) + 1)  ;
-            this.happinessMeter += increasedHappiness;
-            System.out.println("pet");
+        public void pet(){
+            double  increasedHappiness = (Math.floor(Math.random() * 20) + 1)  ;
+//          int increasedHappiness = 20;
+            if (happinessMeter < 100 && happinessMeter > 0) {
+                this.happinessMeter += increasedHappiness;
+                System.out.println("Petting " + name);
+            } else {
+                System.out.println(name + " is too busy to pet");
+            }
         }
 
-        private void play(double increasedHappiness) {
-            increasedHappiness = (Math.floor(Math.random() * 20) + 1) ;
-            this.happinessMeter +=increasedHappiness;
-            System.out.println("play");
+        public void play() {
+//          increasedHappiness = (Math.floor(Math.random() * 20) + 1) ;
+            int increasedHappiness = 20;
+            if (happinessMeter < 100 && happinessMeter > 0) {
+                this.happinessMeter += increasedHappiness;
+                System.out.println("Playing with " + name);
+            } else {
+                System.out.println(name + " is sleeping and therefore doesn't want to play");
+            }
         }
 
-        private void feed(int increasedFullness){
-            increasedFullness = 20;
+        public void feed(){
+            int increasedFullness = 20;
+            if (happinessMeter < 100 && happinessMeter > 0) {
             this.happinessMeter += increasedFullness;
-            System.out.println("feed");
+            System.out.println("Feeding " + name);
+            } else {
+                System.out.println(name + " is already has a full tummy");
+            }
         }
 
-        private void clean(int increasedCleanliness){
+        public void clean(int increasedCleanliness){
             increasedCleanliness = 20;
-            this.happinessMeter += increasedCleanliness;
-            System.out.println("clean");
+            if (happinessMeter <100 && happinessMeter > 0) {
+                this.happinessMeter += increasedCleanliness;
+                System.out.println("Cleaning " + name);
+            } else {
+                System.out.println(name + " doesn't need to be cleaned");
+            }
         }
 
-        private boolean isAlive(){
+
+        public void addHappiness(int additionalHappiness){
+            if (happinessMeter <100 && happinessMeter > 0){
+                this.happinessMeter += additionalHappiness;
+            } else {
+                System.out.println(name + " is the luckiest kitty on the planet");
+            }
+        }
+
+
+        public boolean isAlive(){
             if (happinessMeter > 0) {
-                System.out.println("play");
                 return true;
             }
             else {
-                System.out.println("game over");
+                System.out.println("Game Over, no worries a kitty has 9 lives.");
                 System.exit(0);
                 return false;
             }
@@ -68,8 +95,8 @@ package com.carlijn.kitty;
         public void setHappinessMeter(int happinessMeter) {
             this.happinessMeter = happinessMeter;
 
-
         }
+
     }
 
 
