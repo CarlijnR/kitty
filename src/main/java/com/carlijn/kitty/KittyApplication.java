@@ -1,49 +1,76 @@
 package com.carlijn.kitty;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 @SpringBootApplication
 public class KittyApplication {
 
-	public static void main(String[] args) {
+    static Timer timer = new Timer();
+    static int seconds = 100;
+    static Kitty kitty;
 
-		Kitty charly = new Kitty("Charly", 70);
+    public static void main(String[] args) {
 
-		while (charly.isAlive()) {
+        kitty = new Kitty("Charly", 70);
 
-			String interaction;
-			Scanner interactionNew = new Scanner(System.in);
-			System.out.println("What do you want to do, type in miauw, pet, play, feed or clean");
-			interaction = interactionNew.nextLine();
+        System.out.println("~Welcome to Kitty Tamagotchi~");
 
-			switch (interaction) {
-				case "miauw":
-					charly.miauw();
-					System.out.println(charly.getHappinessMeter());
-					break;
-				case "pet":
-					charly.pet();
-					System.out.println(charly.getHappinessMeter());
-					break;
-				case "play":
-					charly.play();
-					System.out.println(charly.getHappinessMeter());
-					break;
-				case "feed":
-					charly.feed();
-					System.out.println(charly.getHappinessMeter());
-					break;
-				case "clean":
-					charly.clean(20);
-					System.out.println(charly.getHappinessMeter());
-					break;
-				default:
-					System.out.println("Please type the command again");
-					System.out.println(charly.getHappinessMeter());
-			}
+        MyTimer();
 
-		}
-	}
+        while (kitty.isAlive()) {
+
+            String interaction;
+            Scanner interactionNew = new Scanner(System.in);
+            System.out.println("What do you want to do, type in miauw, pet, play, feed or clean");
+            interaction = interactionNew.nextLine();
+
+            switch (interaction) {
+                case "miauw":
+                    kitty.miauw();
+                    System.out.println(kitty.getHappinessMeter());
+                    break;
+                case "pet":
+                    kitty.pet();
+                    System.out.println(kitty.getHappinessMeter());
+                    break;
+                case "play":
+                    kitty.play();
+                    System.out.println(kitty.getHappinessMeter());
+                    break;
+                case "feed":
+                    kitty.feed();
+                    System.out.println(kitty.getHappinessMeter());
+                    break;
+                case "clean":
+                    kitty.clean(20);
+                    System.out.println(kitty.getHappinessMeter());
+                    break;
+                default:
+                    System.out.println("Please type the command again");
+                    System.out.println(kitty.getHappinessMeter());
+            }
+
+        }
+    }
+
+    public static void MyTimer() {
+
+        TimerTask task;
+
+        task = new TimerTask() {
+
+            @Override
+            public void run() {
+              kitty.decayHappinessMeter();
+            }
+        };
+        timer.schedule(task, 0, 5000);
+
+
+    }
 }
